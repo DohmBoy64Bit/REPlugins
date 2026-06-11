@@ -1,0 +1,40 @@
+XEXLoaderWV — Xbox 360 XEX Loader for Ghidra 12.1.2
+====================================================
+
+Built from: https://github.com/zeroKilo/XEXLoaderWV
+Version: 13.0.0
+Target Ghidra: 12.1.2 PUBLIC
+
+Contents
+--------
+  ghidra_12.1.2_PUBLIC_20260611_XEXLoaderWV.zip   Install this in Ghidra
+  XEXLoaderWV.jar                                  Same plugin JAR (manual install)
+  README.md                                        Upstream documentation
+
+Prerequisites
+-------------
+  - Ghidra 12.1.2 (PUBLIC)
+  - Java 21
+
+Install
+-------
+  1. Open Ghidra Project Window
+  2. File > Install Extensions > Add
+  3. Select ghidra_12.1.2_PUBLIC_20260611_XEXLoaderWV.zip
+  4. Restart Ghidra
+
+Use
+---
+  File > Import File > select a .xex (or .xexp delta patch)
+
+  PDB/XDB support (Advanced import options):
+    - Tick "Load PDB File" and "Use experimental PDB loader"
+    - Untick "Process .pdata"
+    - Select MSDIA parser
+
+Source / rebuild
+----------------
+  git clone https://github.com/zeroKilo/XEXLoaderWV.git
+  cd XEXLoaderWV\XEXLoaderWV
+  set GHIDRA_INSTALL_DIR=D:\ghidra_12.1.2_PUBLIC
+  gradle buildExtension

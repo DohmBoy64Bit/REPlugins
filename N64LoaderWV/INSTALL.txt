@@ -1,0 +1,41 @@
+N64LoaderWV — N64 ROM Loader for Ghidra 12.1.2
+==============================================
+
+Built from: https://github.com/zeroKilo/N64LoaderWV
+Target Ghidra: 12.1.2 PUBLIC
+
+Contents
+--------
+  ghidra_12.1.2_PUBLIC_20260611_N64LoaderWV.zip   Install this in Ghidra
+  N64LoaderWV.jar                                  Same plugin JAR (manual install)
+  example_signatures.txt                           Example signature/pattern file
+  example_n64sym.txt                               Example symbol hints file
+  README.md                                        Upstream documentation
+
+Prerequisites
+-------------
+  - Ghidra 12.1.2 (PUBLIC)
+  - Java 21
+
+Install
+-------
+  1. Open Ghidra Project Window
+  2. File > Install Extensions > Add
+  3. Select ghidra_12.1.2_PUBLIC_20260611_N64LoaderWV.zip
+  4. Restart Ghidra
+
+Use
+---
+  File > Import File > select a .z64, .n64, or .v64 ROM
+
+  The loader:
+    - Fixes endianness (little, big, mixed)
+    - Loads RAM, ROM, and boot sections
+    - Can use a signature/pattern file for symbol hints during import
+
+Source / rebuild
+----------------
+  git clone https://github.com/zeroKilo/N64LoaderWV.git
+  cd N64LoaderWV
+  set GHIDRA_INSTALL_DIR=D:\ghidra_12.1.2_PUBLIC
+  gradle buildExtension

@@ -1,0 +1,62 @@
+GhidraMCP 5.13.1 — built for Ghidra 12.1.2
+============================================
+
+Contents
+--------
+  GhidraMCP-5.13.1.zip     Ghidra extension (install this in Ghidra)
+  GhidraMCP-5.13.1.jar     Same plugin JAR (manual install alternative)
+  bridge_mcp_ghidra.py     Python MCP bridge for Cursor / Claude / etc.
+  requirements.txt         Python deps for the bridge
+  requirements-debugger.txt  Optional debugger server deps (Windows)
+  .env.template              Copy to .env and set GHIDRA_PATH if needed
+
+Prerequisites
+-------------
+  - Ghidra 12.1.2 (PUBLIC)
+  - Java 21
+  - Python 3.10+
+
+Install the Ghidra extension
+----------------------------
+  Option A (GUI):
+    1. Open Ghidra Project Window
+    2. File > Install Extensions > Add
+    3. Select GhidraMCP-5.13.1.zip
+    4. Restart Ghidra
+
+  Option B (manual):
+    1. Unzip GhidraMCP-5.13.1.zip
+    2. Copy the GhidraMCP folder to:
+       %APPDATA%\ghidra\ghidra_12.1.2_PUBLIC\Extensions\GhidraMCP
+    3. Restart Ghidra
+
+  Enable plugin:
+    Project Window > File > Configure > Configure All Plugins > GhidraMCP (checked)
+
+  Tools menu (Project Window only, not CodeBrowser):
+    Tools > GhidraMCP > Start Server
+    (Server may auto-start on launch; default port 8089)
+
+Install the Python bridge
+-------------------------
+  pip install -r requirements.txt
+
+  Cursor MCP config (~/.cursor/mcp.json):
+  {
+    "mcpServers": {
+      "ghidra": {
+        "command": "python",
+        "args": ["FULL_PATH_TO\\bridge_mcp_ghidra.py"]
+      }
+    }
+  }
+
+Verify
+------
+  curl http://127.0.0.1:8089/check_connection
+  curl http://127.0.0.1:8089/get_version
+
+Source / full build
+-------------------
+  https://github.com/bethington/ghidra-mcp
+  Built with ghidra.version=12.1.2 in pom.xml
