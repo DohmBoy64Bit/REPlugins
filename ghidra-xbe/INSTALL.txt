@@ -1,0 +1,42 @@
+ghidra-xbe — Original Xbox XBE Loader for Ghidra 12.1.2
+=========================================================
+
+Built from: https://github.com/XboxDev/ghidra-xbe
+Target Ghidra: 12.1.2 PUBLIC
+
+Contents
+--------
+  ghidra_12.1.2_PUBLIC_*_ghidra-xbe.zip   Install this in Ghidra
+  README.md                               Upstream documentation
+
+Prerequisites
+-------------
+  - Ghidra 12.1.2 (PUBLIC)
+  - Java 21
+
+Install
+-------
+  1. Open the Ghidra Project Window
+  2. File > Install Extensions > Add
+  3. Select the ghidra-xbe zip file
+  4. Restart Ghidra
+  5. Enable **XboxExecutableLoader** if prompted
+
+Use
+---
+  File > Import File > select a .xbe (Original Xbox executable)
+
+  Symbol recovery uses the bundled XbSymbolDatabaseCLI (Windows binary
+  included in this build).
+
+Optional headers for better decompilation:
+  https://github.com/mborgerson/xbox-includes
+  File > Parse C Source > xbox.h > Parse to Program
+
+Source / rebuild
+----------------
+  git clone https://github.com/XboxDev/ghidra-xbe.git
+  Download XbSymbolDatabase v3.1.160 and xtlid.xml (see build.sh)
+  Generate XbeXtlidDb.java via xsltproc
+  set GHIDRA_INSTALL_DIR=D:\ghidra_12.1.2_PUBLIC
+  gradle buildExtension

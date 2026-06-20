@@ -7,6 +7,7 @@ Pre-built Ghidra extensions for reverse engineering workflows, compiled against 
 | [GhidraMCP](GhidraMCP/) | MCP server — 249 AI/automation tools over HTTP | [bethington/ghidra-mcp](https://github.com/bethington/ghidra-mcp) |
 | [XEXLoaderWV](XEXLoaderWV/) | Xbox 360 XEX/XEXP loader with PDB/XDB support | [zeroKilo/XEXLoaderWV](https://github.com/zeroKilo/XEXLoaderWV) |
 | [N64LoaderWV](N64LoaderWV/) | Nintendo 64 ROM loader (`.z64`, `.n64`, `.v64`) | [zeroKilo/N64LoaderWV](https://github.com/zeroKilo/N64LoaderWV) |
+| [ghidra-xbe](ghidra-xbe/) | Original Xbox XBE loader with XbSymbolDatabase | [XboxDev/ghidra-xbe](https://github.com/XboxDev/ghidra-xbe) |
 
 ## Requirements
 
@@ -22,6 +23,7 @@ Pre-built Ghidra extensions for reverse engineering workflows, compiled against 
    - `GhidraMCP/GhidraMCP-5.13.1.zip`
    - `XEXLoaderWV/ghidra_12.1.2_PUBLIC_*_XEXLoaderWV.zip`
    - `N64LoaderWV/ghidra_12.1.2_PUBLIC_*_N64LoaderWV.zip`
+   - `ghidra-xbe/ghidra_12.1.2_PUBLIC_*_ghidra-xbe.zip`
 4. **Restart Ghidra** after installing.
 
 Each subfolder has an `INSTALL.txt` with plugin-specific steps.
@@ -65,6 +67,7 @@ curl http://127.0.0.1:8089/check_connection
 |--------|------------|
 | XEXLoaderWV | `.xex`, `.xexp` (+ PDB/XDB via Advanced import) |
 | N64LoaderWV | `.z64`, `.n64`, `.v64` |
+| ghidra-xbe (XboxExecutableLoader) | `.xbe` (Original Xbox) |
 
 **XEX PDB import (Advanced):** enable **Load PDB File** and **Use experimental PDB loader**, disable **Process .pdata**, choose **MSDIA** parser.
 
@@ -79,6 +82,7 @@ Built **2026-06-11** against `ghidra_12.1.2_PUBLIC`.
 | GhidraMCP | Maven (`pom.xml` `ghidra.version=12.1.2`) + `python -m tools.setup` |
 | XEXLoaderWV | Gradle `buildExtension` with `GHIDRA_INSTALL_DIR` |
 | N64LoaderWV | Gradle `buildExtension` with `GHIDRA_INSTALL_DIR` |
+| ghidra-xbe | Gradle `buildExtension` + XbSymbolDatabase + xtlid codegen |
 
 Extensions are version-specific because they compile against that Ghidra install's SDK JARs. Rebuild against a new Ghidra path when upgrading Ghidra.
 
@@ -95,9 +99,12 @@ REPlugins/
 ├── XEXLoaderWV/
 │   ├── ghidra_12.1.2_PUBLIC_*_XEXLoaderWV.zip
 │   └── INSTALL.txt
-└── N64LoaderWV/
-    ├── ghidra_12.1.2_PUBLIC_*_N64LoaderWV.zip
-    ├── example_signatures.txt
+├── N64LoaderWV/
+│   ├── ghidra_12.1.2_PUBLIC_*_N64LoaderWV.zip
+│   ├── example_signatures.txt
+│   └── INSTALL.txt
+└── ghidra-xbe/
+    ├── ghidra_12.1.2_PUBLIC_*_ghidra-xbe.zip
     └── INSTALL.txt
 ```
 
@@ -106,4 +113,4 @@ REPlugins/
 Each extension retains its upstream license:
 
 - GhidraMCP — Apache 2.0
-- XEXLoaderWV / N64LoaderWV — see upstream repositories
+- XEXLoaderWV / N64LoaderWV / ghidra-xbe — see upstream repositories
