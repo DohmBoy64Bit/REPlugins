@@ -83,7 +83,7 @@ Pointing `GHIDRA_INSTALL_DIR` at `12.1.2` links your plugin to that SDK. The out
 
 ### A. Ghidra Gradle extensions (most loaders)
 
-Used by: XEXLoaderWV, N64LoaderWV, ghidra-xbe, GhidraBoy, GameCubeLoader, SegaMasterSystemLoader, ghidra_sega_ldr, Ghidra-SegaSaturn-Loader.
+Used by: XEXLoaderWV, N64LoaderWV, ghidra-xbe, GhidraBoy, GameCubeLoader, SegaMasterSystemLoader, ghidra_sega_ldr, Ghidra-SegaSaturn-Loader, ghidra_sdc_ldr.
 
 Pattern:
 
@@ -213,6 +213,17 @@ Output: `target/GhidraMCP-<ver>.zip` and `target/GhidraMCP-<ver>.jar`.
 - **`extension.properties`** already uses `@extversion@`.
 - **Features:** Saturn ISO, Mednafen (.mc), Yabause (.yss) save state loading with SH-2 register labelling.
 
+### ghidra_sdc_ldr
+
+- **Upstream targets Ghidra 10.0** (v1.2, Jun 2021, 3 commits) — needs ImporterSettings migration.
+- **Required patches:**
+  1. `SegaDreamcastLoader.java`: migrate `load()` to `(Program, Loader.ImporterSettings)`.
+  2. `getDefaultOptions()`: add 5th `boolean optionsOnly` param.
+- **Build:** repo root, no wrapper; requires system Gradle. Run with `-x buildModuleHelp` (help CSS mismatch with 12.x validator).
+- **`extension.properties`** already uses `@extversion@`.
+- **Fork:** [DohmBoy64Bit/ghidra_sdc_ldr](https://github.com/DohmBoy64Bit/ghidra_sdc_ldr) with Ghidra 12.1.2 patches.
+- **Note:** `CodeUnit.REPEATABLE_COMMENT` is deprecated for removal in Ghidra 12.x — produces warnings but still compiles.
+
 ---
 
 ## Packaging rules (REPlugins subfolder)
@@ -320,6 +331,7 @@ Update `CHANGELOG`, `README` supported versions, and REPlugins table.
 | [DohmBoy64Bit/ghidra-snes-loader](https://github.com/DohmBoy64Bit/ghidra-snes-loader) | Patched fork for 12.1.2 |
 | [DohmBoy64Bit/Ghidra-SegaMasterSystem-Loader](https://github.com/DohmBoy64Bit/Ghidra-SegaMasterSystem-Loader) | Patched fork for 12.1.2 |
 | [DohmBoy64Bit/ghidra_sega_ldr](https://github.com/DohmBoy64Bit/ghidra_sega_ldr) | Patched fork for 12.1.2 |
+| [DohmBoy64Bit/ghidra_sdc_ldr](https://github.com/DohmBoy64Bit/ghidra_sdc_ldr) | Patched fork for 12.1.2 |
 | `$env:TEMP\opencode\` | Ephemeral clone workspace for new builds (per-session) |
 | Upstream repos | Linked from README.md per plugin |
 
@@ -363,4 +375,4 @@ Expect `ghidra_version: 12.1.2` and plugin running.
 
 ---
 
-*Last updated: 2026-06-20 — Ghidra 12.1.2 PUBLIC, 12 plugins in pack.*
+*Last updated: 2026-06-20 — Ghidra 12.1.2 PUBLIC, 13 plugins in pack.*

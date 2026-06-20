@@ -18,6 +18,7 @@ Pre-built Ghidra extensions for reverse engineering workflows, compiled against 
 | [SegaMasterSystemLoader](SegaMasterSystemLoader/) | Sega Master System / Game Gear ROM loader (Z80) | [DohmBoy64Bit/Ghidra-SegaMasterSystem-Loader](https://github.com/DohmBoy64Bit/Ghidra-SegaMasterSystem-Loader) (fork, Ghidra 12.1.2) |
 | [ghidra_sega_ldr](ghidra_sega_ldr/) | Sega Mega Drive / Genesis ROM loader (M68000 + 32X SH-2) | [DohmBoy64Bit/ghidra_sega_ldr](https://github.com/DohmBoy64Bit/ghidra_sega_ldr) (fork, Ghidra 12.1.2) |
 | [Ghidra-SegaSaturn-Loader](Ghidra-SegaSaturn-Loader/) | Sega Saturn loader (ISO, MC, YSS save states) | [VGKintsugi/Ghidra-SegaSaturn-Loader](https://github.com/VGKintsugi/Ghidra-SegaSaturn-Loader) |
+| [ghidra_sdc_ldr](ghidra_sdc_ldr/) | Sega Dreamcast RAM dump loader (SuperH4) | [DohmBoy64Bit/ghidra_sdc_ldr](https://github.com/DohmBoy64Bit/ghidra_sdc_ldr) (fork, Ghidra 12.1.2) |
 
 ## Requirements
 
@@ -42,6 +43,7 @@ Pre-built Ghidra extensions for reverse engineering workflows, compiled against 
    - `SegaMasterSystemLoader/ghidra_12.1.2_PUBLIC_20260620_Ghidra-SegaMasterSystem-Loader.zip`
    - `ghidra_sega_ldr/ghidra_12.1.2_PUBLIC_20260620_ghidra_sega_ldr.zip`
    - `Ghidra-SegaSaturn-Loader/ghidra_12.1.2_PUBLIC_20260620_Ghidra-SegaSaturn-Loader.zip`
+   - `ghidra_sdc_ldr/ghidra_12.1.2_PUBLIC_20260620_ghidra_sdc_ldr.zip`
 4. **Restart Ghidra** after installing.
 
 Each subfolder has an `INSTALL.txt` with plugin-specific steps.
@@ -94,6 +96,7 @@ curl http://127.0.0.1:8089/check_connection
 | SegaMasterSystemLoader | `.sms` (Sega Master System), `.gg` (Game Gear) |
 | ghidra_sega_ldr | `.md`, `.gen` (Sega Mega Drive / Genesis), 32X auto-detect |
 | Ghidra-SegaSaturn-Loader | `.iso` (Saturn disc images), `.mc` (Mednafen save states), `.yss` (Yabause save states) |
+| ghidra_sdc_ldr | `.bin` (Dreamcast RAM dumps, 16/32 MB) |
 
 **XEX PDB import (Advanced):** enable **Load PDB File** and **Use experimental PDB loader**, disable **Process .pdata**, choose **MSDIA** parser.
 
@@ -130,6 +133,7 @@ Built **2026-06-20** against `ghidra_12.1.2_PUBLIC`.
 | SegaMasterSystemLoader | Gradle `buildExtension` with `GHIDRA_INSTALL_DIR` (patched for ImporterSettings API; no wrapper, requires system Gradle) |
 | ghidra_sega_ldr | Gradle `buildExtension` with `GHIDRA_INSTALL_DIR` (patched for ImporterSettings API; no wrapper, requires system Gradle) |
 | Ghidra-SegaSaturn-Loader | Gradle `buildExtension` with `GHIDRA_INSTALL_DIR` (no patches needed; no wrapper, requires system Gradle) |
+| ghidra_sdc_ldr | Gradle `buildExtension` with `GHIDRA_INSTALL_DIR` (`-x buildModuleHelp`; patched for ImporterSettings API; no wrapper, requires system Gradle) |
 
 Extensions are version-specific because they compile against that Ghidra install's SDK JARs. Rebuild against a new Ghidra path when upgrading Ghidra.
 
@@ -166,6 +170,9 @@ REPlugins/
 ├── Ghidra-SegaSaturn-Loader/
 │   ├── ghidra_12.1.2_PUBLIC_20260620_Ghidra-SegaSaturn-Loader.zip
 │   └── INSTALL.txt
+├── ghidra_sdc_ldr/
+│   ├── ghidra_12.1.2_PUBLIC_20260620_ghidra_sdc_ldr.zip
+│   └── INSTALL.txt
 ├── NTRGhidra/
 │   ├── ghidra_12.1.2_PUBLIC_20260620_NTRGhidra.zip
 │   └── INSTALL.txt
@@ -190,5 +197,6 @@ Each extension retains its upstream license:
 - SegaMasterSystemLoader — Unlicense
 - ghidra_sega_ldr — Apache 2.0
 - Ghidra-SegaSaturn-Loader — Apache 2.0
+- ghidra_sdc_ldr — Apache 2.0
 - NTRGhidra — Apache 2.0
 - XEXLoaderWV / N64LoaderWV / ghidra-xbe / GhidraBoy / GameCubeLoader — see upstream repositories

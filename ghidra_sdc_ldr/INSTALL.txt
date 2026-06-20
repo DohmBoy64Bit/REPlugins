@@ -1,0 +1,42 @@
+ghidra_sdc_ldr ? Sega Dreamcast Loader for Ghidra
+====================================================
+
+Upstream: https://github.com/lab313ru/ghidra_sdc_ldr
+Fork:     https://github.com/DohmBoy64Bit/ghidra_sdc_ldr (patched for Ghidra 12.1.2)
+
+File types:
+  .bin      ? Sega Dreamcast RAM dumps (16 MB or 32 MB)
+
+Install
+-------
+1. Ghidra Project Window ? File ? Install Extensions ? Add (+)
+2. Select ghidra_12.1.2_PUBLIC_20260620_ghidra_sdc_ldr.zip
+3. Restart Ghidra
+
+Usage
+-----
+1. Create a new Ghidra project
+2. Import a Dreamcast RAM dump
+3. Set format to "Sega Dreamcast Loader" ? OK
+4. Open in CodeBrowser and auto-analyze (SuperH4 CPU)
+
+Supported features
+------------------
+  RAM block loading at configurable base address (default 0x8C000000)
+  SH-4 MMIO register segments: CCN, UBC, BSC, DMAC, CPG, RTC,
+    INTC, TMU, SCI, SCIF, HUDI
+  Named byte/word/dword registers throughout Dreamcast memory map
+
+Build (if rebuilding)
+---------------------
+  cd ghidra_sdc_ldr/
+  $env:GHIDRA_INSTALL_DIR = "D:\ghidra_12.1.2_PUBLIC"
+  gradle buildExtension -x buildModuleHelp
+  Output: dist/ghidra_*_ghidra_sdc_ldr.zip
+
+Required patches for Ghidra 12.1.2
+----------------------------------
+  Upstream targets Ghidra 10.0 (v1.2, Jun 2021). Changes needed:
+  1. SegaDreamcastLoader.java: migrate load() to ImporterSettings API
+  2. SegaDreamcastLoader.java: add boolean optionsOnly to getDefaultOptions()
+  Note: buildModuleHelp requires -x skip (help CSS mismatch with Ghidra 12.x)
