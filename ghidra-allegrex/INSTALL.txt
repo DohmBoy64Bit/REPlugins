@@ -1,0 +1,53 @@
+ghidra-allegrex ? PlayStation Portable (PSP) Allegrex CPU Module for Ghidra
+===========================================================================
+
+Upstream: https://github.com/kotcrab/ghidra-allegrex
+Fork:     none (builds clean on 12.1.2 with no source changes)
+
+File types:
+  .elf, .prx  ? PSP executables (auto-detected as "PSP Executable (ELF)" / Allegrex)
+  .bin, raw   ? Raw binaries (manually select Allegrex processor)
+
+Install
+-------
+1. Ghidra Project Window ? File ? Install Extensions ? Add (+)
+2. Select ghidra_12.1.2_PUBLIC_20260620_ghidra-allegrex.zip
+3. Restart Ghidra
+
+Usage (Games)
+-------------
+1. Drag a decrypted EBOOT (ELF/PRX) into Ghidra
+2. Click Options and set Image Base to 08804000 (recommended)
+3. Open in CodeBrowser and run auto-analysis
+4. Optionally run PpssppImportSymFile to import PPSSPP .sym files
+
+Usage (Kernel modules)
+----------------------
+1. Import .prx with Image Base 88000000
+2. For sysmem/loadcore, check "use reboot.bin type B relocation mapping"
+
+Features
+--------
+  PSP-specific ELF relocation section support (type A and B)
+  Image rebase after loading
+  Allegrex-specific instruction set
+  Processor auto-detection for ELF files
+  PSP calling convention
+  VFPU instruction disassembly and decompilation
+  PPSSPP .sym file import/export scripts
+  Kernel module export as relocatable object files (.o)
+  Sleigh-compiled processor language
+
+Build (if rebuilding)
+---------------------
+  cd ghidra-allegrex/
+  $env:GHIDRA_INSTALL_DIR = "D:\ghidra_12.1.2_PUBLIC"
+  gradlew.bat buildExtension
+  Output: dist/ghidra_*_ghidra-allegrex.zip
+
+Notes
+-----
+- No source patches were needed for Ghidra 12.1.2 compatibility.
+- Upstream is actively maintained (v21.3, Mar 2026, 154 commits).
+- Written in Kotlin 63% / Java 37%; uses jvmToolchain(21).
+- Sleigh processor spec compiled during build via ghidraCompileSleigh task.

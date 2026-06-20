@@ -1,0 +1,44 @@
+ghidra-emotionengine-reloaded ? PlayStation 2 Emotion Engine Loader for Ghidra
+===============================================================================
+
+Upstream: https://github.com/chaoticgd/ghidra-emotionengine-reloaded
+Fork:     none (builds clean on 12.1.2 with no source changes)
+
+File types:
+  .elf  ? PS2 ELF executables (with .mdebug sections)
+  .p2s  ? PCSX2 save states
+
+Install
+-------
+1. Ghidra Project Window ? File ? Install Extensions ? Add (+)
+2. Select ghidra_12.1.2_PUBLIC_20260620_ghidra-emotionengine-reloaded.zip
+3. Restart Ghidra
+
+Usage
+-----
+1. Create a new Ghidra project
+2. Import a PS2 ELF or PCSX2 save state
+3. Set format to "PS2" ? OK
+4. Open in CodeBrowser and auto-analyze (MIPS-R5900 CPU)
+
+Features
+--------
+  PS2 Emotion Engine (EE) disassembly and decompilation
+  MMI, VU0 macro mode instruction sets
+  STABS Analyzer for .mdebug ELF sections (data types, functions, globals)
+  PCSX2 save state import (.p2s)
+  MIPS-R5900 Constant Reference Analyzer (global variable references)
+  Explicit Ghidra 12.1.2 support
+
+Build (if rebuilding)
+---------------------
+  cd ghidra-emotionengine-reloaded/
+  $env:GHIDRA_INSTALL_DIR = "D:\ghidra_12.1.2_PUBLIC"
+  gradle buildExtension
+  Output: dist/ghidra_*_ghidra-emotionengine-reloaded.zip
+
+Notes
+-----
+- No source patches were needed for Ghidra 12.1.2 compatibility.
+- Upstream is actively maintained (v2.1.36, Jun 2026, 415 commits).
+- No gradlew wrapper; requires system Gradle installed.

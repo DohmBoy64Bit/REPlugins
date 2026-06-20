@@ -1,0 +1,59 @@
+CodeCut & DeepCut ? Object File Boundary Locator for Ghidra
+============================================================
+
+Upstream: https://github.com/jhuapl/CodeCut
+Fork:     none (patched upstream repo locally; org.jdom ? org.jdom2 migration for Ghidra 12.x)
+
+Contains TWO Ghidra extensions from a single upstream repository:
+
+  codecut-gui.zip     ? CodeCut GUI table (view/interact at object-file level)
+  deepcut-ghidra.zip  ? DeepCut one-shot analyzer (ML-based module boundary detection)
+
+Install
+-------
+Install BOTH extensions:
+1. Ghidra Project Window ? File ? Install Extensions ? Add (+)
+2. Select ghidra_*_codecut-gui.zip ? check the box
+3. Add again, select ghidra_*_deepcut-ghidra.zip ? check the box
+4. Restart Ghidra
+
+Usage
+-----
+1. Import a binary into Ghidra and run auto-analysis
+2. Run DeepCut: Analysis ? One Shot ? Deepcut
+3. Open CodeCut: Window ? CodeCut Table
+4. Interact at object file level (split/combine/rename/move functions)
+
+Requires
+--------
+- PyGhidra (native Python) with:
+  pip install nltk
+  pip install torch torch-geometric networkx scipy
+
+Features
+--------
+  Assign functions to object files via Namespace field
+  DeepCut ML-based initial boundary estimation
+  Manual boundary adjustment (split/combine namespaces)
+  Guess module names from string references
+  Graph view of module interactions
+  Experimental export to recompilable C
+
+Build (if rebuilding)
+---------------------
+  cd CodeCut/codecut-gui/
+  $env:GHIDRA_INSTALL_DIR = "D:\ghidra_12.1.2_PUBLIC"
+  gradle buildExtension -x buildModuleHelp
+  Output: dist/ghidra_*_codecut-gui.zip
+
+  cd CodeCut/deepcut-ghidra/
+  $env:GHIDRA_INSTALL_DIR = "D:\ghidra_12.1.2_PUBLIC"
+  gradle buildExtension
+  Output: dist/ghidra_*_deepcut-ghidra.zip
+
+Notes
+-----
+- Source patch needed for Ghidra 12.1.2: org.jdom ? org.jdom2 (3 files).
+  Ghidra 12.x ships jdom2, upstream uses old JDOM 1.x package names.
+- Requires PyGhidra for DeepCut ML analysis (torch, networkx, scipy).
+- No gradlew wrapper; requires system Gradle.

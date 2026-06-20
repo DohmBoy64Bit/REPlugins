@@ -332,6 +332,8 @@ Update `CHANGELOG`, `README` supported versions, and REPlugins table.
 | [DohmBoy64Bit/Ghidra-SegaMasterSystem-Loader](https://github.com/DohmBoy64Bit/Ghidra-SegaMasterSystem-Loader) | Patched fork for 12.1.2 |
 | [DohmBoy64Bit/ghidra_sega_ldr](https://github.com/DohmBoy64Bit/ghidra_sega_ldr) | Patched fork for 12.1.2 |
 | [DohmBoy64Bit/ghidra_sdc_ldr](https://github.com/DohmBoy64Bit/ghidra_sdc_ldr) | Patched fork for 12.1.2 |
+| [DohmBoy64Bit/Ghidra-Switch-Loader](https://github.com/DohmBoy64Bit/Ghidra-Switch-Loader) | Patched fork for 12.1.2 |
+| [JHUAPL/CodeCut](https://github.com/JHUAPL/CodeCut) | Upstream (org.jdom?org.jdom2 patch needed locally; not forked) |
 | `$env:TEMP\opencode\` | Ephemeral clone workspace for new builds (per-session) |
 | Upstream repos | Linked from README.md per plugin |
 
@@ -375,4 +377,4 @@ Expect `ghidra_version: 12.1.2` and plugin running.
 
 ---
 
-*Last updated: 2026-06-20 — Ghidra 12.1.2 PUBLIC, 13 plugins in pack.*
+*Last updated: 2026-06-20 — Ghidra 12.1.2 PUBLIC, 19 plugins in pack.*

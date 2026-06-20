@@ -1,0 +1,51 @@
+Ps3GhidraScripts ? PlayStation 3 Ghidra Scripts
+=================================================
+
+Upstream: https://github.com/clienthax/Ps3GhidraScripts
+Fork:     none (builds clean on 12.1.2 with no source changes)
+
+File types:
+  .elf, .prx  ? PS3 executables / PRX modules (PowerISA-Altivec-64-32addr, BIG ENDIAN)
+
+Install
+-------
+1. Ghidra Project Window ? File ? Install Extensions ? Add (+)
+2. Select ghidra_12.1.2_PUBLIC_20260620_Ps3GhidraScripts.zip
+3. Restart Ghidra
+4. In CodeBrowser: Window ? Script Manager ? look for PS3 scripts
+
+Usage
+-----
+1. Import a PS3 ELF/PRX, select the BIG ENDIAN variant of
+   "PowerISA-Altivec-64-32addr" (uncheck "Use Recommended")
+2. Run AnalyzePs3Binary.java BEFORE auto-analysis
+3. Run auto-analysis
+4. Run DefinePS3Syscalls.java after auto-analysis
+
+Scripts included
+----------------
+  AnalyzePs3Binary.java      ? Parse info sections, define imports/exports, set TOC
+  DefinePS3Syscalls.java     ? Resolve syscalls to names, define function stubs
+  AssignPs3R2FromOpd.java    ? Assign r2 (TOC) from .opd entries
+  FindPs3JumptableTargets.py ? Python script for jump table discovery
+  Ps3DataStructureTypes.java ? PS3-specific data type setup
+  Ps3ElfUtils.java           ? Utilities for PS3 ELF parsing
+  FnidUtils.java             ? FNID lookup utilities
+
+Required manual change
+----------------------
+Add `<register name="r2"/>` to the `<unaffected>` list in
+Ghidra/Processors/PowerPC/data/languages/ppc_64_32.cspec
+to avoid decompilation issues with TOC-based calling convention.
+
+Known limitations
+-----------------
+  - Relocations are not currently supported
+  - Some Cell-specific vector instructions (lvlx, stvlx, etc.) may break decompilation
+
+Build (if rebuilding)
+---------------------
+  cd Ps3GhidraScripts/
+  $env:GHIDRA_INSTALL_DIR = "D:\ghidra_12.1.2_PUBLIC"
+  gradlew.bat buildExtension
+  Output: dist/ghidra_*_Ps3GhidraScripts.zip

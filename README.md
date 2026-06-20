@@ -19,6 +19,12 @@ Pre-built Ghidra extensions for reverse engineering workflows, compiled against 
 | [ghidra_sega_ldr](ghidra_sega_ldr/) | Sega Mega Drive / Genesis ROM loader (M68000 + 32X SH-2) | [DohmBoy64Bit/ghidra_sega_ldr](https://github.com/DohmBoy64Bit/ghidra_sega_ldr) (fork, Ghidra 12.1.2) |
 | [Ghidra-SegaSaturn-Loader](Ghidra-SegaSaturn-Loader/) | Sega Saturn loader (ISO, MC, YSS save states) | [VGKintsugi/Ghidra-SegaSaturn-Loader](https://github.com/VGKintsugi/Ghidra-SegaSaturn-Loader) |
 | [ghidra_sdc_ldr](ghidra_sdc_ldr/) | Sega Dreamcast RAM dump loader (SuperH4) | [DohmBoy64Bit/ghidra_sdc_ldr](https://github.com/DohmBoy64Bit/ghidra_sdc_ldr) (fork, Ghidra 12.1.2) |
+| [ghidra_psx_ldr](ghidra_psx_ldr/) | Sony PlayStation PSX loader (R3000, PSYQ signatures) | [lab313ru/ghidra_psx_ldr](https://github.com/lab313ru/ghidra_psx_ldr) |
+| [ghidra-emotionengine-reloaded](ghidra-emotionengine-reloaded/) | PlayStation 2 Emotion Engine loader (EE, MMI, VU0, STABS) | [chaoticgd/ghidra-emotionengine-reloaded](https://github.com/chaoticgd/ghidra-emotionengine-reloaded) |
+| [Ps3GhidraScripts](Ps3GhidraScripts/) | PlayStation 3 scripts (PRX/ELF analysis, syscalls, TOC) | [clienthax/Ps3GhidraScripts](https://github.com/clienthax/Ps3GhidraScripts) |
+| [ghidra-allegrex](ghidra-allegrex/) | PlayStation Portable (PSP) Allegrex CPU module (ELF/PRX, VFPU) | [kotcrab/ghidra-allegrex](https://github.com/kotcrab/ghidra-allegrex) |
+| [CodeCut](CodeCut/) | Object file boundary locator (DeepCut ML + CodeCut GUI) | [JHUAPL/CodeCut](https://github.com/JHUAPL/CodeCut) |
+| [ghidra-switch-loader](ghidra-switch-loader/) | Nintendo Switch loader (NSO, NRO, NCA, XCI, KIP) | [DohmBoy64Bit/Ghidra-Switch-Loader](https://github.com/DohmBoy64Bit/Ghidra-Switch-Loader) (fork, Ghidra 12.1.2) |
 
 ## Requirements
 
@@ -44,6 +50,13 @@ Pre-built Ghidra extensions for reverse engineering workflows, compiled against 
    - `ghidra_sega_ldr/ghidra_12.1.2_PUBLIC_20260620_ghidra_sega_ldr.zip`
    - `Ghidra-SegaSaturn-Loader/ghidra_12.1.2_PUBLIC_20260620_Ghidra-SegaSaturn-Loader.zip`
    - `ghidra_sdc_ldr/ghidra_12.1.2_PUBLIC_20260620_ghidra_sdc_ldr.zip`
+   - `ghidra_psx_ldr/ghidra_12.1.2_PUBLIC_20260620_ghidra_psx_ldr.zip`
+   - `ghidra-emotionengine-reloaded/ghidra_12.1.2_PUBLIC_20260620_ghidra-emotionengine-reloaded.zip`
+   - `Ps3GhidraScripts/ghidra_12.1.2_PUBLIC_20260620_Ps3GhidraScripts.zip`
+   - `ghidra-allegrex/ghidra_12.1.2_PUBLIC_20260620_ghidra-allegrex.zip`
+   - `CodeCut/ghidra_12.1.2_PUBLIC_20260620_codecut-gui.zip`
+   - `CodeCut/ghidra_12.1.2_PUBLIC_20260620_deepcut-ghidra.zip`
+   - `ghidra-switch-loader/SwitchLoader-1.6.1-f269b17-Ghidra_12.1.2.zip`
 4. **Restart Ghidra** after installing.
 
 Each subfolder has an `INSTALL.txt` with plugin-specific steps.
@@ -97,6 +110,12 @@ curl http://127.0.0.1:8089/check_connection
 | ghidra_sega_ldr | `.md`, `.gen` (Sega Mega Drive / Genesis), 32X auto-detect |
 | Ghidra-SegaSaturn-Loader | `.iso` (Saturn disc images), `.mc` (Mednafen save states), `.yss` (Yabause save states) |
 | ghidra_sdc_ldr | `.bin` (Dreamcast RAM dumps, 16/32 MB) |
+| ghidra_psx_ldr | `.ps-exe`, `.cpe`, `.exe` (PSX executables); `.obj`, `.lib` (PSYQ) |
+| ghidra-emotionengine-reloaded | `.elf` (PS2 ELF with `.mdebug`), `.p2s` (PCSX2 save states) |
+| Ps3GhidraScripts | `.elf`, `.prx` (PS3/PRX executables, PowerISA-Altivec BE) |
+| ghidra-allegrex | `.elf`, `.prx` (PSP executables, Allegrex); `.bin` (raw) |
+| CodeCut | Any binary (analysis-only plugin, not a loader) |
+| ghidra-switch-loader | `.nso`, `.nro`, `.nca`, `.xci`, `.kip` (Nintendo Switch); `.elf` |
 
 **XEX PDB import (Advanced):** enable **Load PDB File** and **Use experimental PDB loader**, disable **Process .pdata**, choose **MSDIA** parser.
 
@@ -134,6 +153,12 @@ Built **2026-06-20** against `ghidra_12.1.2_PUBLIC`.
 | ghidra_sega_ldr | Gradle `buildExtension` with `GHIDRA_INSTALL_DIR` (patched for ImporterSettings API; no wrapper, requires system Gradle) |
 | Ghidra-SegaSaturn-Loader | Gradle `buildExtension` with `GHIDRA_INSTALL_DIR` (no patches needed; no wrapper, requires system Gradle) |
 | ghidra_sdc_ldr | Gradle `buildExtension` with `GHIDRA_INSTALL_DIR` (`-x buildModuleHelp`; patched for ImporterSettings API; no wrapper, requires system Gradle) |
+| ghidra_psx_ldr | Gradle `buildExtension` with `GHIDRA_INSTALL_DIR` (no patches needed; has wrapper) |
+| ghidra-emotionengine-reloaded | Gradle `buildExtension` with `GHIDRA_INSTALL_DIR` (no patches needed; no wrapper, requires system Gradle) |
+| Ps3GhidraScripts | Gradle `buildExtension` with `GHIDRA_INSTALL_DIR` (no patches needed; has wrapper) |
+| ghidra-allegrex | Gradle `buildExtension` with `GHIDRA_INSTALL_DIR` (no patches needed; Kotlin + Sleigh; has wrapper) |
+| CodeCut | Gradle `buildExtension` with `GHIDRA_INSTALL_DIR` (`-x buildModuleHelp` for codecut-gui; patched org.jdom?org.jdom2; no wrapper, requires system Gradle) |
+| ghidra-switch-loader | Gradle `buildExtension` with `GHIDRA_INSTALL_DIR` (patched Guava imports + NXOAdapter; has wrapper) |
 
 Extensions are version-specific because they compile against that Ghidra install's SDK JARs. Rebuild against a new Ghidra path when upgrading Ghidra.
 
@@ -173,6 +198,25 @@ REPlugins/
 ├── ghidra_sdc_ldr/
 │   ├── ghidra_12.1.2_PUBLIC_20260620_ghidra_sdc_ldr.zip
 │   └── INSTALL.txt
+├── ghidra_psx_ldr/
+│   ├── ghidra_12.1.2_PUBLIC_20260620_ghidra_psx_ldr.zip
+│   └── INSTALL.txt
+├── ghidra-emotionengine-reloaded/
+│   ├── ghidra_12.1.2_PUBLIC_20260620_ghidra-emotionengine-reloaded.zip
+│   └── INSTALL.txt
+├── Ps3GhidraScripts/
+│   ├── ghidra_12.1.2_PUBLIC_20260620_Ps3GhidraScripts.zip
+│   └── INSTALL.txt
+├── ghidra-allegrex/
+│   ├── ghidra_12.1.2_PUBLIC_20260620_ghidra-allegrex.zip
+│   └── INSTALL.txt
+├── CodeCut/
+│   ├── ghidra_12.1.2_PUBLIC_20260620_codecut-gui.zip
+│   ├── ghidra_12.1.2_PUBLIC_20260620_deepcut-ghidra.zip
+│   └── INSTALL.txt
+├── ghidra-switch-loader/
+│   ├── SwitchLoader-1.6.1-f269b17-Ghidra_12.1.2.zip
+│   └── INSTALL.txt
 ├── NTRGhidra/
 │   ├── ghidra_12.1.2_PUBLIC_20260620_NTRGhidra.zip
 │   └── INSTALL.txt
@@ -198,5 +242,11 @@ Each extension retains its upstream license:
 - ghidra_sega_ldr — Apache 2.0
 - Ghidra-SegaSaturn-Loader — Apache 2.0
 - ghidra_sdc_ldr — Apache 2.0
+- ghidra_psx_ldr — Apache 2.0
+- ghidra-emotionengine-reloaded — Apache 2.0
+- Ps3GhidraScripts — Unlicense
+- ghidra-allegrex — Apache 2.0
+- CodeCut — Apache 2.0
+- ghidra-switch-loader — ISC
 - NTRGhidra — Apache 2.0
 - XEXLoaderWV / N64LoaderWV / ghidra-xbe / GhidraBoy / GameCubeLoader — see upstream repositories

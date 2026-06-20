@@ -1,0 +1,45 @@
+ghidra_psx_ldr ? Sony PlayStation PSX Loader for Ghidra
+=========================================================
+
+Upstream: https://github.com/lab313ru/ghidra_psx_ldr
+Fork:     none (builds clean on 12.1.2 with no source changes)
+
+File types:
+  .ps-exe, .cpe, .exe  ? PSX executables
+  .obj, .lib  ? PSYQ object/library files (with signature file)
+
+Install
+-------
+1. Ghidra Project Window ? File ? Install Extensions ? Add (+)
+2. Select ghidra_12.1.2_PUBLIC_20260620_ghidra_psx_ldr.zip
+3. Restart Ghidra
+
+Usage
+-----
+1. Create a new Ghidra project
+2. Import a PSX executable
+3. Set format to "PSX Loader" ? OK
+4. Open in CodeBrowser and auto-analyze (R3000 CPU)
+
+Features
+--------
+  PSX executable loader (.ps-exe, .cpe, .exe)
+  PSYQ library/object file analysis with signature matching
+  GTE macro segment creation for improved decompiler output
+  Overlay support
+  PsyQ version detection via signature files (submodule: psx_psyq_signatures)
+  Extensive hardware register labelling (GPU, SPU, DMA, CDROM, etc.)
+
+Build (if rebuilding)
+---------------------
+  cd ghidra_psx_ldr/
+  git submodule update --init
+  $env:GHIDRA_INSTALL_DIR = "D:\ghidra_12.1.2_PUBLIC"
+  gradlew.bat buildExtension
+  Output: dist/ghidra_*_ghidra_psx_ldr.zip
+
+Notes
+-----
+- No source patches were needed for Ghidra 12.1.2 compatibility.
+- Upstream is actively maintained (Jun 2026 release, 282 commits).
+- Requires git submodule init for PSYQ signature data.

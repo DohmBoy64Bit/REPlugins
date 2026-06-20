@@ -1,0 +1,52 @@
+Ghidra-Switch-Loader ? Nintendo Switch Loader for Ghidra
+=========================================================
+
+Upstream: https://github.com/adubbz/Ghidra-Switch-Loader
+Fork:     https://github.com/DohmBoy64Bit/Ghidra-Switch-Loader
+
+File types:
+  .nso  ? Nintendo Switch NSO (code segment)
+  .nro  ? Nintendo Switch NRO (homebrew)
+  .nca  ? Nintendo Switch NCA (content archive)
+  .xci  ? Nintendo Switch XCI (game card)
+  .kip  ? Nintendo Switch KIP (kernel initial process)
+  .elf  ? Standard ELF (with Switch-specific analysis)
+
+Install
+-------
+1. Ghidra Project Window ? File ? Install Extensions ? Add (+)
+2. Select SwitchLoader-1.6.1-f269b17-Ghidra_12.1.2.zip
+3. Restart Ghidra
+
+Usage
+-----
+1. Import a Switch binary file
+2. Select the appropriate loader (NSO/NRO/NCA/XCI/KIP)
+3. Open in CodeBrowser and run auto-analysis (AARCH64 / AARCH32)
+
+Features
+--------
+  Loader for multiple Switch file formats (NSO, NRO, NCA, XCI, KIP)
+  ELF relocation support for Switch binaries
+  Plt/got resolution for NSO/NRO
+  IPC analyzer for service call tracing
+  VTable analysis and matching
+  Segaddr support for relocated NSOs
+  Aarch32 ELF compatibility
+
+Build (if rebuilding)
+---------------------
+  git clone https://github.com/DohmBoy64Bit/Ghidra-Switch-Loader.git
+  cd Ghidra-Switch-Loader/
+  $env:GHIDRA_INSTALL_DIR = "D:\ghidra_12.1.2_PUBLIC"
+  gradlew.bat buildExtension
+  Output: dist/SwitchLoader-*-Ghidra_12.1.2.zip
+
+Notes
+-----
+- Source patches needed for Ghidra 12.1.2:
+  1. IPCAnalyzer.java: org.python.google.common.collect ? com.google.common.collect (Guava repackaging)
+  2. NXOAdapter.java: removed try/catch for non-throwing MemoryProvider.length()
+- Forked to DohmBoy64Bit/Ghidra-Switch-Loader with patches applied.
+- Upstream is unmaintained (last release v1.7.0, Jan 2024).
+- Deprecation warnings about pcode.emulate/memstate APIs are harmless (functional).
