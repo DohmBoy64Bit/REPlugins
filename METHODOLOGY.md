@@ -83,7 +83,7 @@ Pointing `GHIDRA_INSTALL_DIR` at `12.1.2` links your plugin to that SDK. The out
 
 ### A. Ghidra Gradle extensions (most loaders)
 
-Used by: XEXLoaderWV, N64LoaderWV, ghidra-xbe, GhidraBoy, GameCubeLoader.
+Used by: XEXLoaderWV, N64LoaderWV, ghidra-xbe, GhidraBoy, GameCubeLoader, SegaMasterSystemLoader.
 
 Pattern:
 
@@ -183,6 +183,18 @@ Output: `target/GhidraMCP-<ver>.zip` and `target/GhidraMCP-<ver>.jar`.
 - **ZIP naming:** uses custom scheme `GameCubeLoader-<ver>-<git>-Ghidra_<version>.zip` (not `ghidra_12.1.2_PUBLIC_*` prefix).
 - **`extension.properties`** already uses `@extversion@`.
 - **Dependency:** pulls `org.lz4:lz4-java:1.5.1` via Maven Central for compression support.
+
+### SegaMasterSystemLoader
+
+- **Upstream is WIP** — 3 commits, no releases, targets Ghidra 9.x.
+- **Required patches:**
+  1. `SMSLoaderLoader.java`: remove `MemoryConflictHandler` import (removed in Ghidra 12.x).
+  2. `load()` method: migrate 7-param `load(ByteProvider, LoadSpec, List<Option>, Program, MemoryConflictHandler, TaskMonitor, MessageLog)` to 2-param `load(Program, Loader.ImporterSettings)`. Access provider/monitor/log via `importerSettings.provider()`, `importerSettings.monitor()`, `importerSettings.log()`.
+  3. `getDefaultOptions()`: add 5th `boolean optionsOnly` param.
+  4. `validateOptions()`: add `Program program` param.
+- **Build:** repo root, no wrapper; requires system Gradle (`$env:USERPROFILE\tools\gradle-8.12.1\bin\gradle.bat buildExtension`).
+- **`extension.properties`** already uses `@extversion@`.
+- **Fork:** [DohmBoy64Bit/Ghidra-SegaMasterSystem-Loader](https://github.com/DohmBoy64Bit/Ghidra-SegaMasterSystem-Loader) with Ghidra 12.1.2 patches.
 
 ---
 
@@ -289,6 +301,7 @@ Update `CHANGELOG`, `README` supported versions, and REPlugins table.
 | [DohmBoy64Bit/REPlugins](https://github.com/DohmBoy64Bit/REPlugins) | Distribution pack (ZIPs + docs) |
 | [DohmBoy64Bit/GhidraBoy](https://github.com/DohmBoy64Bit/GhidraBoy) | Patched fork for 12.1.2 |
 | [DohmBoy64Bit/ghidra-snes-loader](https://github.com/DohmBoy64Bit/ghidra-snes-loader) | Patched fork for 12.1.2 |
+| [DohmBoy64Bit/Ghidra-SegaMasterSystem-Loader](https://github.com/DohmBoy64Bit/Ghidra-SegaMasterSystem-Loader) | Patched fork for 12.1.2 |
 | `c:\Users\SeanS\ghirdamcpbuild\` | Local clone/build workspace for all upstream repos |
 | Upstream repos | Linked from README.md per plugin |
 
@@ -332,4 +345,4 @@ Expect `ghidra_version: 12.1.2` and plugin running.
 
 ---
 
-*Last updated: 2026-06-20 — Ghidra 12.1.2 PUBLIC, 9 plugins in pack.*
+*Last updated: 2026-06-20 — Ghidra 12.1.2 PUBLIC, 10 plugins in pack.*

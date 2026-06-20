@@ -15,6 +15,7 @@ Pre-built Ghidra extensions for reverse engineering workflows, compiled against 
 | [SnesLoader](SnesLoader/) | SNES (LoROM/HiROM) loader and disassembler | [DohmBoy64Bit/ghidra-snes-loader](https://github.com/DohmBoy64Bit/ghidra-snes-loader) (fork, Ghidra 12.1.2) |
 | [GhidraBoy](GhidraBoy/) | Game Boy / SM83 loader and processor module | [DohmBoy64Bit/GhidraBoy](https://github.com/DohmBoy64Bit/GhidraBoy) (fork, Ghidra 12.1.2) |
 | [GameCubeLoader](GameCubeLoader/) | Nintendo GameCube / Wii binary loader (DOL, REL) | [Cuyler36/Ghidra-GameCube-Loader](https://github.com/Cuyler36/Ghidra-GameCube-Loader) |
+| [SegaMasterSystemLoader](SegaMasterSystemLoader/) | Sega Master System / Game Gear ROM loader (Z80) | [DohmBoy64Bit/Ghidra-SegaMasterSystem-Loader](https://github.com/DohmBoy64Bit/Ghidra-SegaMasterSystem-Loader) (fork, Ghidra 12.1.2) |
 
 ## Requirements
 
@@ -36,6 +37,7 @@ Pre-built Ghidra extensions for reverse engineering workflows, compiled against 
    - `GhidraNes/ghidra_12.1.2_PUBLIC_*_GhidraNes.zip`
    - `SnesLoader/ghidra_12.1.2_PUBLIC_*_SnesLoader.zip`
    - `GameCubeLoader/GameCubeLoader-1.3.0-921504c-Ghidra_12.1.2.zip`
+   - `SegaMasterSystemLoader/ghidra_12.1.2_PUBLIC_20260620_Ghidra-SegaMasterSystem-Loader.zip`
 4. **Restart Ghidra** after installing.
 
 Each subfolder has an `INSTALL.txt` with plugin-specific steps.
@@ -85,6 +87,7 @@ curl http://127.0.0.1:8089/check_connection
 | GhidraNes | `.nes` (iNES 1.0 NES ROMs) |
 | GhidraBoy | Game Boy ROMs / boot ROMs |
 | GameCubeLoader | `.dol` (GameCube/Wii executables), `.rel` (relocatable modules), apploaders, RAM dumps |
+| SegaMasterSystemLoader | `.sms` (Sega Master System), `.gg` (Game Gear) |
 
 **XEX PDB import (Advanced):** enable **Load PDB File** and **Use experimental PDB loader**, disable **Process .pdata**, choose **MSDIA** parser.
 
@@ -118,6 +121,7 @@ Built **2026-06-20** against `ghidra_12.1.2_PUBLIC`.
 | SnesLoader | Gradle `buildExtension` (requires `-x buildModuleHelp`; patched for ImporterSettings API) |
 | GhidraBoy | Gradle `assemble` after patching for Ghidra 12.1.2 loader API changes |
 | GameCubeLoader | Gradle `buildExtension` with `GHIDRA_INSTALL_DIR` (no patches needed) |
+| SegaMasterSystemLoader | Gradle `buildExtension` with `GHIDRA_INSTALL_DIR` (patched for ImporterSettings API; no wrapper, requires system Gradle) |
 
 Extensions are version-specific because they compile against that Ghidra install's SDK JARs. Rebuild against a new Ghidra path when upgrading Ghidra.
 
@@ -145,6 +149,9 @@ REPlugins/
 ├── GameCubeLoader/
 │   ├── GameCubeLoader-1.3.0-921504c-Ghidra_12.1.2.zip
 │   └── INSTALL.txt
+├── SegaMasterSystemLoader/
+│   ├── ghidra_12.1.2_PUBLIC_20260620_Ghidra-SegaMasterSystem-Loader.zip
+│   └── INSTALL.txt
 ├── NTRGhidra/
 │   ├── ghidra_12.1.2_PUBLIC_20260620_NTRGhidra.zip
 │   └── INSTALL.txt
@@ -166,5 +173,6 @@ Each extension retains its upstream license:
 - GhidraMCP — Apache 2.0
 - GhidraNes — Apache 2.0
 - SnesLoader — MIT
+- SegaMasterSystemLoader — Unlicense
 - NTRGhidra — Apache 2.0
 - XEXLoaderWV / N64LoaderWV / ghidra-xbe / GhidraBoy / GameCubeLoader — see upstream repositories

@@ -1,0 +1,53 @@
+SegaMasterSystemLoader ? Sega Master System / Game Gear Loader for Ghidra
+=============================================================================
+
+Upstream: https://github.com/VGKintsugi/Ghidra-SegaMasterSystem-Loader
+Fork:     https://github.com/DohmBoy64Bit/Ghidra-SegaMasterSystem-Loader (patched for Ghidra 12.1.2)
+
+File types:
+  .sms      ? Sega Master System ROM
+  .gg       ? Sega Game Gear ROM
+
+Install
+-------
+1. Ghidra Project Window ? File ? Install Extensions ? Add (+)
+2. Select ghidra_12.1.2_PUBLIC_20260620_Ghidra-SegaMasterSystem-Loader.zip
+3. Restart Ghidra
+
+Usage
+-----
+1. Create a new Ghidra project
+2. Import a .sms or .gg file
+3. Set format to "Sega Master System & Game Gear (SMS/GG)" ? OK
+4. Open in CodeBrowser and auto-analyze (Z80 CPU)
+
+Supported features
+------------------
+  SMS/GG file detection via "TMR SEGA" header at 0x1FF0/0x3FF0/0x7FF0
+  Z80 disassembly starting at entry point
+  ROM block (0x0000-0xBFFF)
+  System RAM (0xC000-0xDFFF)
+  RAM mirror (0xE000-0xFFFF)
+  "Start" function created at byte 0
+
+Limitations
+-----------
+  WIP loader ? no ROM mapper/bank switching support yet
+  RAM mirror is a separate block (not a true mirror mapping)
+
+Build (if rebuilding)
+---------------------
+  cd Ghidra-SegaMasterSystem-Loader/
+  $env:GHIDRA_INSTALL_DIR = "D:\ghidra_12.1.2_PUBLIC"
+  gradle buildExtension
+  Output: dist/ghidra_*_Ghidra-SegaMasterSystem-Loader.zip
+
+Required patches for Ghidra 12.1.2
+----------------------------------
+  Upstream targets Ghidra 9.x (3 commits, no releases). Changes needed:
+  1. SMSLoaderLoader.java: remove MemoryConflictHandler import
+  2. SMSLoaderLoader.java: migrate load() to ImporterSettings API:
+     - Signature: load(Program, Loader.ImporterSettings)
+     - Get provider/monitor/log via importerSettings.provider() etc.
+  3. SMSLoaderLoader.java: add boolean param to getDefaultOptions()
+  4. SMSLoaderLoader.java: add Program param to validateOptions()
