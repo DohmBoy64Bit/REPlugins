@@ -1,7 +1,8 @@
 GhidraBoy — Game Boy / SM83 extension for Ghidra 12.1.2
 =======================================================
 
-Built from: https://github.com/Gekkio/GhidraBoy
+Built from: https://github.com/DohmBoy64Bit/GhidraBoy
+Upstream: https://github.com/Gekkio/GhidraBoy
 Target Ghidra: 12.1.2 PUBLIC
 
 Contents

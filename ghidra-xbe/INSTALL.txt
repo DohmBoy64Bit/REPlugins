@@ -29,9 +29,13 @@ Use
   Symbol recovery uses the bundled XbSymbolDatabaseCLI (Windows binary
   included in this build).
 
-Optional headers for better decompilation:
-  https://github.com/mborgerson/xbox-includes
-  File > Parse C Source > xbox.h > Parse to Program
+Optional type hints for better decompilation:
+  1. Get headers from https://github.com/mborgerson/xbox-includes
+  2. Open your imported XBE in CodeBrowser (run auto-analysis first)
+  3. File > Parse C Source...
+  4. Click + and add xbox.h from the repo
+  5. Click Parse to Program
+  6. In Data Type Manager, right-click the program > Apply Function Datatypes
 
 Source / rebuild
 ----------------

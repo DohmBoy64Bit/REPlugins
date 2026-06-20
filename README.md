@@ -8,7 +8,7 @@ Pre-built Ghidra extensions for reverse engineering workflows, compiled against 
 | [XEXLoaderWV](XEXLoaderWV/) | Xbox 360 XEX/XEXP loader with PDB/XDB support | [zeroKilo/XEXLoaderWV](https://github.com/zeroKilo/XEXLoaderWV) |
 | [N64LoaderWV](N64LoaderWV/) | Nintendo 64 ROM loader (`.z64`, `.n64`, `.v64`) | [zeroKilo/N64LoaderWV](https://github.com/zeroKilo/N64LoaderWV) |
 | [ghidra-xbe](ghidra-xbe/) | Original Xbox XBE loader with XbSymbolDatabase | [XboxDev/ghidra-xbe](https://github.com/XboxDev/ghidra-xbe) |
-| [GhidraBoy](GhidraBoy/) | Game Boy / SM83 loader and processor module | [Gekkio/GhidraBoy](https://github.com/Gekkio/GhidraBoy) |
+| [GhidraBoy](GhidraBoy/) | Game Boy / SM83 loader and processor module | [DohmBoy64Bit/GhidraBoy](https://github.com/DohmBoy64Bit/GhidraBoy) (fork, Ghidra 12.1.2) |
 
 ## Requirements
 
@@ -75,6 +75,19 @@ curl http://127.0.0.1:8089/check_connection
 **XEX PDB import (Advanced):** enable **Load PDB File** and **Use experimental PDB loader**, disable **Process .pdata**, choose **MSDIA** parser.
 
 **N64 symbols:** optional `example_signatures.txt` / `example_n64sym.txt` in the N64LoaderWV folder.
+
+### Original Xbox type hints (optional)
+
+After importing an `.xbe` with **ghidra-xbe**, you can improve decompiler output by parsing Xbox SDK-style headers into the program:
+
+1. Clone or download [mborgerson/xbox-includes](https://github.com/mborgerson/xbox-includes).
+2. In **CodeBrowser**, with your XBE program open and auto-analysis finished:
+   - **File → Parse C Source…**
+   - Click the green **+** and add `xbox.h` from the xbox-includes repo.
+   - Click **Parse to Program**.
+3. In **Data Type Manager**, right-click your program (e.g. `default.xbe`) and choose **Apply Function Datatypes**.
+
+This adds struct/typedef/function signature hints so Ghidra's decompiler can show meaningful types instead of raw pointers and unknowns. It is optional but worth doing early on large XBEs.
 
 ## Build info
 
