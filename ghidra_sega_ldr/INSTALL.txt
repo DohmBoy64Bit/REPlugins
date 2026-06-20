@@ -1,0 +1,46 @@
+ghidra_sega_ldr ? Sega Mega Drive / Genesis Loader for Ghidra
+==============================================================
+
+Upstream: https://github.com/lab313ru/ghidra_sega_ldr
+Fork:     https://github.com/DohmBoy64Bit/ghidra_sega_ldr (patched for Ghidra 12.1.2)
+
+File types:
+  .md, .gen   ? Sega Mega Drive / Genesis ROM images
+
+Install
+-------
+1. Ghidra Project Window ? File ? Install Extensions ? Add (+)
+2. Select ghidra_12.1.2_PUBLIC_20260620_ghidra_sega_ldr.zip
+3. Restart Ghidra
+
+Usage
+-----
+1. Create a new Ghidra project
+2. Import a Mega Drive / Genesis ROM (looks for "SEGA" header at 0x100)
+3. Set format to "Sega Mega Drive / Genesis Loader" ? OK
+4. Open in CodeBrowser and auto-analyze
+
+Supported features
+------------------
+  M68000 (MC68020) disassembly for main ROM
+  SuperH SH-2 disassembly for 32X add-on (auto-detected via "MARS CHECK MODE")
+  ROM, RAM, Z80, VDP, I/O memory segments mapped
+  Exception vector table parsed and labelled
+  Game header (offset 0x100) parsed and labelled
+  32X registers, banks, PWM, PAL, VDP, SH-2 cache regions mapped
+  Sega CD support (EPA segment)
+  Byte/word/dword named I/O registers throughout memory map
+
+Build (if rebuilding)
+---------------------
+  cd ghidra_sega_ldr/
+  $env:GHIDRA_INSTALL_DIR = "D:\ghidra_12.1.2_PUBLIC"
+  gradle buildExtension
+  Output: dist/ghidra_*_ghidra_sega_ldr.zip
+
+Required patches for Ghidra 12.1.2
+----------------------------------
+  Upstream targets Ghidra 11.0.1 (v2.3). Changes needed:
+  1. SegaLoader.java: migrate load() to ImporterSettings API:
+     - Signature: load(Program, Loader.ImporterSettings)
+     - Get provider/loadSpec/monitor/log via importerSettings

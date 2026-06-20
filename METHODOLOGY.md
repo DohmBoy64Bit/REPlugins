@@ -83,7 +83,7 @@ Pointing `GHIDRA_INSTALL_DIR` at `12.1.2` links your plugin to that SDK. The out
 
 ### A. Ghidra Gradle extensions (most loaders)
 
-Used by: XEXLoaderWV, N64LoaderWV, ghidra-xbe, GhidraBoy, GameCubeLoader, SegaMasterSystemLoader.
+Used by: XEXLoaderWV, N64LoaderWV, ghidra-xbe, GhidraBoy, GameCubeLoader, SegaMasterSystemLoader, ghidra_sega_ldr.
 
 Pattern:
 
@@ -196,6 +196,16 @@ Output: `target/GhidraMCP-<ver>.zip` and `target/GhidraMCP-<ver>.jar`.
 - **`extension.properties`** already uses `@extversion@`.
 - **Fork:** [DohmBoy64Bit/Ghidra-SegaMasterSystem-Loader](https://github.com/DohmBoy64Bit/Ghidra-SegaMasterSystem-Loader) with Ghidra 12.1.2 patches.
 
+### ghidra_sega_ldr
+
+- **Upstream targets Ghidra 11.0.1** (v2.3, Mar 2024) — needs ImporterSettings migration.
+- **Required patches:**
+  1. `SegaLoader.java`: migrate `load(ByteProvider, LoadSpec, List<Option>, Program, TaskMonitor, MessageLog)` to `load(Program, Loader.ImporterSettings)`. Access provider/loadSpec/monitor/log via importerSettings.
+- **Build:** repo root, no wrapper; requires system Gradle.
+- **`extension.properties`** already uses `@extversion@`.
+- **Fork:** [DohmBoy64Bit/ghidra_sega_ldr](https://github.com/DohmBoy64Bit/ghidra_sega_ldr) with Ghidra 12.1.2 patches.
+- **Features:** M68000 ROM + 32X SH-2 dual CPU, full memory map (Z80, VDP, I/O, Sega CD, 32X registers), auto-labelled vectors and header.
+
 ---
 
 ## Packaging rules (REPlugins subfolder)
@@ -302,7 +312,8 @@ Update `CHANGELOG`, `README` supported versions, and REPlugins table.
 | [DohmBoy64Bit/GhidraBoy](https://github.com/DohmBoy64Bit/GhidraBoy) | Patched fork for 12.1.2 |
 | [DohmBoy64Bit/ghidra-snes-loader](https://github.com/DohmBoy64Bit/ghidra-snes-loader) | Patched fork for 12.1.2 |
 | [DohmBoy64Bit/Ghidra-SegaMasterSystem-Loader](https://github.com/DohmBoy64Bit/Ghidra-SegaMasterSystem-Loader) | Patched fork for 12.1.2 |
-| `c:\Users\SeanS\ghirdamcpbuild\` | Local clone/build workspace for all upstream repos |
+| [DohmBoy64Bit/ghidra_sega_ldr](https://github.com/DohmBoy64Bit/ghidra_sega_ldr) | Patched fork for 12.1.2 |
+| `$env:TEMP\opencode\` | Ephemeral clone workspace for new builds (per-session) |
 | Upstream repos | Linked from README.md per plugin |
 
 ---
@@ -345,4 +356,4 @@ Expect `ghidra_version: 12.1.2` and plugin running.
 
 ---
 
-*Last updated: 2026-06-20 — Ghidra 12.1.2 PUBLIC, 10 plugins in pack.*
+*Last updated: 2026-06-20 — Ghidra 12.1.2 PUBLIC, 11 plugins in pack.*
