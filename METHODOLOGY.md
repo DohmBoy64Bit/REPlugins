@@ -83,7 +83,7 @@ Pointing `GHIDRA_INSTALL_DIR` at `12.1.2` links your plugin to that SDK. The out
 
 ### A. Ghidra Gradle extensions (most loaders)
 
-Used by: XEXLoaderWV, N64LoaderWV, ghidra-xbe, GhidraBoy, GameCubeLoader, SegaMasterSystemLoader, ghidra_sega_ldr.
+Used by: XEXLoaderWV, N64LoaderWV, ghidra-xbe, GhidraBoy, GameCubeLoader, SegaMasterSystemLoader, ghidra_sega_ldr, Ghidra-SegaSaturn-Loader.
 
 Pattern:
 
@@ -205,6 +205,13 @@ Output: `target/GhidraMCP-<ver>.zip` and `target/GhidraMCP-<ver>.jar`.
 - **`extension.properties`** already uses `@extversion@`.
 - **Fork:** [DohmBoy64Bit/ghidra_sega_ldr](https://github.com/DohmBoy64Bit/ghidra_sega_ldr) with Ghidra 12.1.2 patches.
 - **Features:** M68000 ROM + 32X SH-2 dual CPU, full memory map (Z80, VDP, I/O, Sega CD, 32X registers), auto-labelled vectors and header.
+
+### Ghidra-SegaSaturn-Loader
+
+- **No source changes** needed for Ghidra 12.1.2 — upstream released v12.0.0 targeting Ghidra 12.0 (Dec 2025, actively maintained).
+- **Build:** repo root, no wrapper; requires system Gradle.
+- **`extension.properties`** already uses `@extversion@`.
+- **Features:** Saturn ISO, Mednafen (.mc), Yabause (.yss) save state loading with SH-2 register labelling.
 
 ---
 
@@ -356,4 +363,4 @@ Expect `ghidra_version: 12.1.2` and plugin running.
 
 ---
 
-*Last updated: 2026-06-20 — Ghidra 12.1.2 PUBLIC, 11 plugins in pack.*
+*Last updated: 2026-06-20 — Ghidra 12.1.2 PUBLIC, 12 plugins in pack.*

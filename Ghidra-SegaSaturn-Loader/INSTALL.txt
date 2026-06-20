@@ -1,0 +1,48 @@
+Ghidra-SegaSaturn-Loader ? Sega Saturn Loader for Ghidra
+==========================================================
+
+Upstream: https://github.com/VGKintsugi/Ghidra-SegaSaturn-Loader
+Fork:     none (builds clean on 12.1.2 with no source changes)
+
+File types:
+  .iso      ? Sega Saturn disc images (ISO 9660)
+  .mc       ? Mednafen save states (gunzip first)
+  .yss      ? Yabause save states
+
+Install
+-------
+1. Ghidra Project Window ? File ? Install Extensions ? Add (+)
+2. Select ghidra_12.1.2_PUBLIC_20260620_Ghidra-SegaSaturn-Loader.zip
+3. Restart Ghidra
+
+Usage
+-----
+1. Create a new Ghidra project
+2. Import a Saturn ISO or save state
+3. For ISOs: at "Container file detected" prompt, select "Single file"
+4. Open in CodeBrowser and auto-analyze (SH-1/SH-2 CPU)
+
+Supported features
+------------------
+  ISO disc images (loads first file, creates main/IP/security_check functions)
+  Mednafen save states (loads backup cart + HIRAM/LOWRAM, labels SH-2 registers)
+  Yabause save states (same as Mednafen)
+  Optional Sega Saturn library signatures via ApplySig.py
+
+Limitations
+-----------
+  WIP loader ? memory map doesn't handle mirrored regions
+  On-chip register region (0xFFFFFFE00-0xFFFFFFFF) disabled
+  ISO loads first file only (multi-file discs partial)
+
+Build (if rebuilding)
+---------------------
+  cd Ghidra-SegaSaturn-Loader/
+  $env:GHIDRA_INSTALL_DIR = "D:\ghidra_12.1.2_PUBLIC"
+  gradle buildExtension
+  Output: dist/ghidra_*_Ghidra-SegaSaturn-Loader.zip
+
+Notes
+-----
+- No source patches were needed for Ghidra 12.1.2 compatibility.
+- Upstream released v12.0.0 for Ghidra 12.0 (Dec 2025, actively maintained).
