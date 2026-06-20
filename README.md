@@ -8,6 +8,7 @@ Pre-built Ghidra extensions for reverse engineering workflows, compiled against 
 | [XEXLoaderWV](XEXLoaderWV/) | Xbox 360 XEX/XEXP loader with PDB/XDB support | [zeroKilo/XEXLoaderWV](https://github.com/zeroKilo/XEXLoaderWV) |
 | [N64LoaderWV](N64LoaderWV/) | Nintendo 64 ROM loader (`.z64`, `.n64`, `.v64`) | [zeroKilo/N64LoaderWV](https://github.com/zeroKilo/N64LoaderWV) |
 | [ghidra-xbe](ghidra-xbe/) | Original Xbox XBE loader with XbSymbolDatabase | [XboxDev/ghidra-xbe](https://github.com/XboxDev/ghidra-xbe) |
+| [GhidraBoy](GhidraBoy/) | Game Boy / SM83 loader and processor module | [Gekkio/GhidraBoy](https://github.com/Gekkio/GhidraBoy) |
 
 ## Requirements
 
@@ -24,6 +25,7 @@ Pre-built Ghidra extensions for reverse engineering workflows, compiled against 
    - `XEXLoaderWV/ghidra_12.1.2_PUBLIC_*_XEXLoaderWV.zip`
    - `N64LoaderWV/ghidra_12.1.2_PUBLIC_*_N64LoaderWV.zip`
    - `ghidra-xbe/ghidra_12.1.2_PUBLIC_*_ghidra-xbe.zip`
+   - `GhidraBoy/ghidra_12.1.2_PUBLIC_*_GhidraBoy.zip`
 4. **Restart Ghidra** after installing.
 
 Each subfolder has an `INSTALL.txt` with plugin-specific steps.
@@ -68,6 +70,7 @@ curl http://127.0.0.1:8089/check_connection
 | XEXLoaderWV | `.xex`, `.xexp` (+ PDB/XDB via Advanced import) |
 | N64LoaderWV | `.z64`, `.n64`, `.v64` |
 | ghidra-xbe (XboxExecutableLoader) | `.xbe` (Original Xbox) |
+| GhidraBoy | Game Boy ROMs / boot ROMs |
 
 **XEX PDB import (Advanced):** enable **Load PDB File** and **Use experimental PDB loader**, disable **Process .pdata**, choose **MSDIA** parser.
 
@@ -83,6 +86,7 @@ Built **2026-06-11** against `ghidra_12.1.2_PUBLIC`.
 | XEXLoaderWV | Gradle `buildExtension` with `GHIDRA_INSTALL_DIR` |
 | N64LoaderWV | Gradle `buildExtension` with `GHIDRA_INSTALL_DIR` |
 | ghidra-xbe | Gradle `buildExtension` + XbSymbolDatabase + xtlid codegen |
+| GhidraBoy | Gradle `assemble` after patching for Ghidra 12.1.2 loader API changes |
 
 Extensions are version-specific because they compile against that Ghidra install's SDK JARs. Rebuild against a new Ghidra path when upgrading Ghidra.
 
@@ -103,6 +107,9 @@ REPlugins/
 │   ├── ghidra_12.1.2_PUBLIC_*_N64LoaderWV.zip
 │   ├── example_signatures.txt
 │   └── INSTALL.txt
+├── GhidraBoy/
+│   ├── ghidra_12.1.2_PUBLIC_*_GhidraBoy.zip
+│   └── INSTALL.txt
 └── ghidra-xbe/
     ├── ghidra_12.1.2_PUBLIC_*_ghidra-xbe.zip
     └── INSTALL.txt
@@ -113,4 +120,4 @@ REPlugins/
 Each extension retains its upstream license:
 
 - GhidraMCP — Apache 2.0
-- XEXLoaderWV / N64LoaderWV / ghidra-xbe — see upstream repositories
+- XEXLoaderWV / N64LoaderWV / ghidra-xbe / GhidraBoy — see upstream repositories

@@ -1,0 +1,46 @@
+GhidraBoy — Game Boy / SM83 extension for Ghidra 12.1.2
+=======================================================
+
+Built from: https://github.com/Gekkio/GhidraBoy
+Target Ghidra: 12.1.2 PUBLIC
+
+Contents
+--------
+  ghidra_12.1.2_PUBLIC_*_GhidraBoy.zip   Install this in Ghidra
+  GhidraBoy-1.7.1.jar                    Built plugin JAR
+  GhidraBoy-1.7.1-sources.jar            Source jar
+  README.markdown                        Upstream documentation
+
+Prerequisites
+-------------
+  - Ghidra 12.1.2 (PUBLIC)
+  - Java 21
+
+Install
+-------
+  1. Open the Ghidra Project Window
+  2. File > Install Extensions > Add
+  3. Select the GhidraBoy zip file
+  4. Restart Ghidra
+
+Use
+---
+  Import supported Game Boy ROMs / boot ROMs in Ghidra.
+
+  Features include:
+    - Sharp SM83 processor support
+    - Game Boy ROM loader
+    - Boot ROM support
+    - Hardware register symbols
+    - Cartridge header data types
+
+Build notes
+-----------
+  Upstream GhidraBoy targets Ghidra 11.4.2 and older.
+  This 12.1.2 build required small compatibility patches:
+    - Update HashUtilities import to generic.hash.HashUtilities
+    - Update AbstractProgramLoader overrides to the new ImporterSettings API
+
+  The extension assembles successfully on 12.1.2.
+  Upstream tests did not pass cleanly in this environment, so this pack uses
+  the built distribution zip from `assemble` rather than a fully green `build`.
