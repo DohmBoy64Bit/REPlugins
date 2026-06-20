@@ -1,0 +1,46 @@
+GameCubeLoader ? Nintendo GameCube / Wii Loader for Ghidra
+============================================================
+
+Upstream: https://github.com/Cuyler36/Ghidra-GameCube-Loader
+Fork:     none (builds clean on 12.1.2 with no source changes)
+
+File types:
+  .dol       ? DOL Executables (GameCube/Wii)
+  .rel       ? Relocatable Modules
+  (apploaders, RAM dumps)
+
+Install
+-------
+1. Ghidra Project Window ? File ? Install Extensions ? Add (+)
+2. Select GameCubeLoader-1.3.0-921504c-Ghidra_12.1.2.zip
+3. Restart Ghidra
+
+Usage
+-----
+1. Create a new Ghidra project
+2. Import a .dol or .rel file
+3. Set format to "GameCube Binary" ? OK
+4. Open in CodeBrowser and auto-analyze
+
+Supported features
+------------------
+  DOL executables (.dol)
+  Relocatable modules (.rel)
+  Apploaders
+  RAM dumps
+  Optional symbol map importing
+  Automatic namespace creation
+  Demangling support
+
+Build (if rebuilding)
+---------------------
+  cd GameCubeLoader/
+  $env:GHIDRA_INSTALL_DIR = "D:\ghidra_12.1.2_PUBLIC"
+  gradlew.bat
+  Output: dist/GameCubeLoader-*-Ghidra_12.1.2.zip
+
+Notes
+-----
+- No source patches were needed for Ghidra 12.1.2 compatibility.
+- The upstream repo is actively maintained and released a 12.1-compatible
+  build on May 24, 2026.

@@ -2,13 +2,19 @@
 
 Pre-built Ghidra extensions for reverse engineering workflows, compiled against **Ghidra 12.1.2 PUBLIC**.
 
+**For AI agents:** see [METHODOLOGY.md](METHODOLOGY.md) for how we build, patch, fork, and package these extensions.
+
 | Plugin | Purpose | Source |
 |--------|---------|--------|
 | [GhidraMCP](GhidraMCP/) | MCP server — 249 AI/automation tools over HTTP | [bethington/ghidra-mcp](https://github.com/bethington/ghidra-mcp) |
 | [XEXLoaderWV](XEXLoaderWV/) | Xbox 360 XEX/XEXP loader with PDB/XDB support | [zeroKilo/XEXLoaderWV](https://github.com/zeroKilo/XEXLoaderWV) |
 | [N64LoaderWV](N64LoaderWV/) | Nintendo 64 ROM loader (`.z64`, `.n64`, `.v64`) | [zeroKilo/N64LoaderWV](https://github.com/zeroKilo/N64LoaderWV) |
 | [ghidra-xbe](ghidra-xbe/) | Original Xbox XBE loader with XbSymbolDatabase | [XboxDev/ghidra-xbe](https://github.com/XboxDev/ghidra-xbe) |
+| [NTRGhidra](NTRGhidra/) | Nintendo DS (NDS/DSi/NTR) loader with overlays | [pedro-javierf/NTRGhidra](https://github.com/pedro-javierf/NTRGhidra) |
+| [GhidraNes](GhidraNes/) | NES (iNES 1.0) ROM loader with bank switching | [kylewlacy/GhidraNes](https://github.com/kylewlacy/GhidraNes) |
+| [SnesLoader](SnesLoader/) | SNES (LoROM/HiROM) loader and disassembler | [DohmBoy64Bit/ghidra-snes-loader](https://github.com/DohmBoy64Bit/ghidra-snes-loader) (fork, Ghidra 12.1.2) |
 | [GhidraBoy](GhidraBoy/) | Game Boy / SM83 loader and processor module | [DohmBoy64Bit/GhidraBoy](https://github.com/DohmBoy64Bit/GhidraBoy) (fork, Ghidra 12.1.2) |
+| [GameCubeLoader](GameCubeLoader/) | Nintendo GameCube / Wii binary loader (DOL, REL) | [Cuyler36/Ghidra-GameCube-Loader](https://github.com/Cuyler36/Ghidra-GameCube-Loader) |
 
 ## Requirements
 
@@ -26,6 +32,10 @@ Pre-built Ghidra extensions for reverse engineering workflows, compiled against 
    - `N64LoaderWV/ghidra_12.1.2_PUBLIC_*_N64LoaderWV.zip`
    - `ghidra-xbe/ghidra_12.1.2_PUBLIC_*_ghidra-xbe.zip`
    - `GhidraBoy/ghidra_12.1.2_PUBLIC_*_GhidraBoy.zip`
+   - `NTRGhidra/ghidra_12.1.2_PUBLIC_*_NTRGhidra.zip`
+   - `GhidraNes/ghidra_12.1.2_PUBLIC_*_GhidraNes.zip`
+   - `SnesLoader/ghidra_12.1.2_PUBLIC_*_SnesLoader.zip`
+   - `GameCubeLoader/GameCubeLoader-1.3.0-921504c-Ghidra_12.1.2.zip`
 4. **Restart Ghidra** after installing.
 
 Each subfolder has an `INSTALL.txt` with plugin-specific steps.
@@ -70,7 +80,11 @@ curl http://127.0.0.1:8089/check_connection
 | XEXLoaderWV | `.xex`, `.xexp` (+ PDB/XDB via Advanced import) |
 | N64LoaderWV | `.z64`, `.n64`, `.v64` |
 | ghidra-xbe (XboxExecutableLoader) | `.xbe` (Original Xbox) |
+| NTRGhidra | `.nds` (Nintendo DS ROMs), NITRO / DSi binaries |
+| SnesLoader | `.sfc`, `.smc`, `.fig`, `.swc` (SNES ROMs, LoROM/HiROM) |
+| GhidraNes | `.nes` (iNES 1.0 NES ROMs) |
 | GhidraBoy | Game Boy ROMs / boot ROMs |
+| GameCubeLoader | `.dol` (GameCube/Wii executables), `.rel` (relocatable modules), apploaders, RAM dumps |
 
 **XEX PDB import (Advanced):** enable **Load PDB File** and **Use experimental PDB loader**, disable **Process .pdata**, choose **MSDIA** parser.
 
@@ -91,7 +105,7 @@ This adds struct/typedef/function signature hints so Ghidra's decompiler can sho
 
 ## Build info
 
-Built **2026-06-11** against `ghidra_12.1.2_PUBLIC`.
+Built **2026-06-20** against `ghidra_12.1.2_PUBLIC`.
 
 | Component | Build method |
 |-----------|------------|
@@ -99,7 +113,11 @@ Built **2026-06-11** against `ghidra_12.1.2_PUBLIC`.
 | XEXLoaderWV | Gradle `buildExtension` with `GHIDRA_INSTALL_DIR` |
 | N64LoaderWV | Gradle `buildExtension` with `GHIDRA_INSTALL_DIR` |
 | ghidra-xbe | Gradle `buildExtension` + XbSymbolDatabase + xtlid codegen |
+| NTRGhidra | Gradle `buildExtension` with `GHIDRA_INSTALL_DIR` (no patches needed) |
+| GhidraNes | Gradle `buildExtension` with `GHIDRA_INSTALL_DIR` (compat adapter layer, no patches needed) |
+| SnesLoader | Gradle `buildExtension` (requires `-x buildModuleHelp`; patched for ImporterSettings API) |
 | GhidraBoy | Gradle `assemble` after patching for Ghidra 12.1.2 loader API changes |
+| GameCubeLoader | Gradle `buildExtension` with `GHIDRA_INSTALL_DIR` (no patches needed) |
 
 Extensions are version-specific because they compile against that Ghidra install's SDK JARs. Rebuild against a new Ghidra path when upgrading Ghidra.
 
@@ -108,6 +126,7 @@ Extensions are version-specific because they compile against that Ghidra install
 ```
 REPlugins/
 ├── README.md
+├── METHODOLOGY.md
 ├── GhidraMCP/
 │   ├── GhidraMCP-5.13.1.zip
 │   ├── bridge_mcp_ghidra.py
@@ -123,6 +142,18 @@ REPlugins/
 ├── GhidraBoy/
 │   ├── ghidra_12.1.2_PUBLIC_*_GhidraBoy.zip
 │   └── INSTALL.txt
+├── GameCubeLoader/
+│   ├── GameCubeLoader-1.3.0-921504c-Ghidra_12.1.2.zip
+│   └── INSTALL.txt
+├── NTRGhidra/
+│   ├── ghidra_12.1.2_PUBLIC_20260620_NTRGhidra.zip
+│   └── INSTALL.txt
+├── GhidraNes/
+│   ├── ghidra_12.1.2_PUBLIC_20260620_GhidraNes.zip
+│   └── INSTALL.txt
+├── SnesLoader/
+│   ├── ghidra_12.1.2_PUBLIC_20260620_SnesLoader.zip
+│   └── INSTALL.txt
 └── ghidra-xbe/
     ├── ghidra_12.1.2_PUBLIC_*_ghidra-xbe.zip
     └── INSTALL.txt
@@ -133,4 +164,7 @@ REPlugins/
 Each extension retains its upstream license:
 
 - GhidraMCP — Apache 2.0
-- XEXLoaderWV / N64LoaderWV / ghidra-xbe / GhidraBoy — see upstream repositories
+- GhidraNes — Apache 2.0
+- SnesLoader — MIT
+- NTRGhidra — Apache 2.0
+- XEXLoaderWV / N64LoaderWV / ghidra-xbe / GhidraBoy / GameCubeLoader — see upstream repositories

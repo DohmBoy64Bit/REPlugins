@@ -1,0 +1,50 @@
+GhidraNes ? NES (iNES 1.0) ROM Loader for Ghidra
+==================================================
+
+Version: v20260531 (upstream) ? rebuilt for Ghidra 12.1.2 PUBLIC
+Upstream: https://github.com/kylewlacy/GhidraNes
+Fork:     none (builds clean on 12.1.2 with no source changes)
+
+File types:
+  .nes       ? iNES 1.0 NES ROM images
+
+Install
+-------
+1. Ghidra Project Window ? File ? Install Extensions ? Add (+)
+2. Select ghidra_12.1.2_PUBLIC_20260620_GhidraNes.zip
+3. Restart Ghidra
+
+Usage
+-----
+1. Create a new Ghidra project
+2. Drag-and-drop a .nes ROM onto the project
+3. Set format to "NES ROM" ? OK
+4. Open in CodeBrowser and auto-analyze
+
+Supported mappers
+-----------------
+  NROM (0), MMC1/SxROM (1), UxROM (2), CNROM (3, 185), MMC3/TxROM
+  (4, 118, 119), AxROM (7), MMC4/FxROM (10), CPROM (13), VRC2/4
+  (21, 22, 23, 25), UNROM 512 (30), BNROM/NINA (34), GxROM (66),
+  Sunsoft 3/4 (67, 68), Sunsoft FME-7 (69), VRC7 (85), VRC3 (73),
+  RAMBO-1 (64, 158), Namco 129/163 (19), Namco 175/340 (210),
+  Bandai FCG (16, 153, 157, 159), DxROM (206), NINA003/006 (79, 146),
+  Color Dreams (11), and many more (see upstream README).
+
+Bank switching
+--------------
+Each PRG bank maps to its own memory block. Bank switching must be
+handled manually ? right-click a JMP/JSR operand ? References ?
+Add/Edit ? change address to the correct bank prefix (e.g. PRG0::).
+
+Build (if rebuilding)
+---------------------
+  cd GhidraNes/GhidraNes
+  \ = "D:\ghidra_12.1.2_PUBLIC"
+  gradle buildExtension
+  Output: dist/ghidra_*_GhidraNes.zip
+
+Notes
+-----
+- No source patches were needed for Ghidra 12.1.2 compatibility.
+- Uses a compat adapter layer (src/compat/ghidra12).

@@ -1,0 +1,50 @@
+SnesLoader ? SNES (Super Nintendo) ROM Loader for Ghidra
+=========================================================
+
+Upstream: https://github.com/achan1989/ghidra-snes-loader
+Fork:     https://github.com/DohmBoy64Bit/ghidra-snes-loader (patched for Ghidra 12.1.2)
+
+NOTE: Upstream repo is archived and no longer maintained. This fork
+contains source patches for Ghidra 12.1.2 API compatibility.
+
+File types:
+  .sfc, .smc, .fig, .swc  ? SNES ROM images (LoROM/HiROM auto-detected)
+
+Install
+-------
+1. Ghidra Project Window ? File ? Install Extensions ? Add (+)
+2. Select ghidra_12.1.2_PUBLIC_20260620_SnesLoader.zip
+3. Restart Ghidra
+
+Usage
+-----
+1. Create a new Ghidra project
+2. Import a SNES ROM file
+3. Set format to "SNES ROM" ? OK
+4. Open in CodeBrowser and auto-analyze
+
+Supported formats
+-----------------
+  LoROM (with and without FastROM)
+  HiROM (with and without FastROM)
+  Auto-detected from ROM header at 0x7FC0 / 0xFFC0
+
+Bank switching notes
+--------------------
+  Each bank is mapped to its own memory block (0x8000 bytes per bank
+  for LoROM, 0x10000 for HiROM). Mirrors are created as byte-mapped
+  blocks.
+
+Build (if rebuilding)
+---------------------
+  cd SnesLoader/
+  \ = "D:\ghidra_12.1.2_PUBLIC"
+  gradle buildExtension -x buildModuleHelp
+  Output: dist/ghidra_*_SnesLoader.zip
+
+Required patches for Ghidra 12.1.2
+-----------------------------------
+  Upstream targets Ghidra 9.1+. Changes needed for 12.1.2:
+  1. SnesLoader.java: migrate AbstractProgramLoader to ImporterSettings API
+     (loadProgram, loadProgramInto, getDefaultOptions, createProgram)
+  2. LoRomLoader.java: add boolean param to createByteMappedBlock

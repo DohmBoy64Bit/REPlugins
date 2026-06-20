@@ -1,0 +1,38 @@
+NTRGhidra ? Nintendo DS (NDS/DSi/NTR) Loader for Ghidra
+=======================================================
+
+Version: v1.5.1 (upstream) ? rebuilt for Ghidra 12.1.2 PUBLIC
+Upstream: https://github.com/pedro-javierf/NTRGhidra
+Fork:     none (builds clean on 12.1.2 with no source changes)
+
+File types:
+  .nds       ? Nintendo DS ROM
+  NITRO / DSi binaries
+
+Install
+-------
+1. Ghidra Project Window ? File ? Install Extensions ? Add (+)
+2. Select ghidra_12.1.2_PUBLIC_20260620_NTRGhidra.zip
+3. Restart Ghidra
+
+Features
+--------
+- ARM9/ARM7 loader with automatic ARM9 decompression
+- NDS header parsing (title, game code, maker, regions)
+- SDK auto-detection and Function ID (FIDB) for nitrosdk 3.0
+- Dynamic overlay loading (requires plugin activation):
+  File ? Configure ? Miscellaneous ? NTRGhidraPlugin ? enable
+  Then right-click the program listing ? NTRGhidra ? Load/Unload Overlays
+- Ghidra scripts in ghidra_scripts/ directory
+
+Build (if rebuilding)
+---------------------
+  \ = "D:\ghidra_12.1.2_PUBLIC"
+  .\gradlew.bat buildExtension
+  Output: dist/ghidra_*_NTRGhidra.zip
+
+Notes
+-----
+- Dynamic overlay loading requires the original ROM file at the
+  exact same path as when it was imported into Ghidra.
+- No source patches were needed for Ghidra 12.1.2 compatibility.
